@@ -127,6 +127,7 @@
 
 
                             <h4 class="mb-3 pb-3">Log In</h4>
+                            <form id="login-form" method="post">
                             <div class="form-group">
                               <input type="email" name="logemail" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off">
                               <i class="input-icon uil uil-at"></i>
@@ -135,8 +136,9 @@
                               <input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass" autocomplete="off">
                               <i class="input-icon uil uil-lock-alt"></i>
                             </div>
-                            <a href="#" class="btn mt-4">submit</a>
+                            <button type="submit" class="btn mt-4 btn-success">Login!</button>
                             <p class="mb-0 mt-4 text-center"><a href="#0" class="link">Forgot your password?</a></p>
+                            </form>
                           </div>
                         </div>
                       </div>
@@ -494,6 +496,33 @@
       } else {
         label.innerText = 'Choose file';
       }
+    });
+  });
+</script>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    $('#login-form').on('submit', function(event) {
+      event.preventDefault(); // prevent the default form submission
+
+      // send the AJAX request
+      $.ajax({
+        url: '/login', // replace with the URL of your Spring Boot backend login endpoint
+        method: 'post',
+        data: {
+          username: $('#logemail').val(),
+          password: $('#logpass').val()
+        },
+        success: function(data) {
+          // handle successful login (e.g. redirect to dashboard page)
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          // display error message to the user
+          $('#login-form').append('<div class="error">Invalid username or password</div>');
+        }
+      });
     });
   });
 </script>
