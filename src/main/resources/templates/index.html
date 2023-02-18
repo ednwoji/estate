@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Plato Bootstrap Template - Index</title>
+  <title>New Haven</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -509,13 +509,15 @@
 
       // send the AJAX request
       $.ajax({
-        url: '/login', // replace with the URL of your Spring Boot backend login endpoint
+        url: '/web/login', // replace with the URL of your Spring Boot backend login endpoint
         method: 'post',
         data: {
           username: $('#logemail').val(),
           password: $('#logpass').val()
         },
         success: function(data) {
+
+          window.location.href = '/web/dashboard';
           // handle successful login (e.g. redirect to dashboard page)
         },
         error: function(jqXHR, textStatus, errorThrown) {

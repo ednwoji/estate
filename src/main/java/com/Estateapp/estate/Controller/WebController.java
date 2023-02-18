@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -79,7 +80,7 @@ public class WebController {
 
         try {
             byte[] bytes = file.getBytes();
-            String customFileName = fullName;
+            String customFileName = fullName+".jpg";
             Path path = Paths.get("src/main/resources/uploaded-files/" + customFileName);
             Files.write(path, bytes);
         } catch (IOException e) {
@@ -94,19 +95,30 @@ public class WebController {
 
 
 
-    public ResponseEntity<String> login(@RequestParam("logemail") String email, @RequestParam("logpass") String userPassword){
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestParam("username") String email, @RequestParam("password") String userPassword, HttpSession session){
 
         Users user = usersRepository.findByEmail(email);
         if (user == null || !BCrypt.checkpw(userPassword,user.getPassword())) {
             // return an error response with status code 401 (Unauthorized)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         } else {
+
+            session.setAttribute("user", user.getName());
+            session.setAttribute("url", "/"+user.getName()+".jpg");
             // return a success response with status code 200 (OK)
             return ResponseEntity.ok("Login successful");
         }
 
 
 
+
+    }
+
+    @GetMapping("/dashboard")
+    public String dashboardPage() {
+
+        return "Dashboard";
     }
 
 

@@ -14,7 +14,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
             registry
                     .addResourceHandler("/**")
-                    .addResourceLocations("classpath:/static/");
+                    .addResourceLocations("classpath:/static/")
+                    .addResourceLocations("classpath:/uploaded-files/");
         }
 
     }
