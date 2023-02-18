@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8">
@@ -34,7 +34,30 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+
+  <style>
+  .file-upload {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .file-upload input[type="file"] {
+    display: none;
+  }
+
+  .file-upload label {
+    background-color: #38B2AC;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+</style>
+
 </head>
+
 
 <body>
   <div class="wrap">
@@ -93,7 +116,7 @@
                       <div class="card-front">
                         <div class="center-wrap">
                           <div class="section text-center">
-                            <h4 class="mb-4 pb-3">Log In</h4>
+                            <h4 class="mb-3 pb-3">Log In</h4>
                             <div class="form-group">
                               <input type="email" name="logemail" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off">
                               <i class="input-icon uil uil-at"></i>
@@ -110,20 +133,64 @@
                       <div class="card-back">
                         <div class="center-wrap">
                           <div class="section text-center">
-                            <h4 class="mb-4 pb-3">Sign Up</h4>
+                            <h4 class="mb-3 pb-3">Sign Up</h4>
+                            <form action="#" th:action="@{/web/upload}" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
-                              <input type="text" name="logname" class="form-style" placeholder="Your Full Name" id="logname" autocomplete="off">
+                              <input type="text" name="surname" class="form-style" placeholder="Your Surname" id="surname" autocomplete="off" required>
                               <i class="input-icon uil uil-user"></i>
                             </div>
+
                             <div class="form-group mt-2">
-                              <input type="email" name="logemail" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off">
+                              <input type="text" name="fname" class="form-style" placeholder="Your First Name" id="fname" autocomplete="off" required>
                               <i class="input-icon uil uil-at"></i>
                             </div>
+
                             <div class="form-group mt-2">
-                              <input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass" autocomplete="off">
+                              <input type="email" name="logemail" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off" required>
+                              <i class="input-icon uil uil-at"></i>
+                            </div>
+
+                              <div class="form-group mt-2">
+                                <input type="tel" name="phone" class="form-style" placeholder="Your Mobile Number" id="phone" autocomplete="off" required>
+                                <i class="input-icon uil uil-at"></i>
+                              </div>
+
+                              <div class="form-group d-flex justify-content-between mt-2">
+                                <div class="col-sm-4">
+                                  <select class="form-control" id="selectField1">
+                                    <option disabled selected>Area</option>
+                                    <option>Area 1</option>
+                                    <option>Area 2</option>
+                                    <option>Area 3</option>
+                                    <option>Area 4</option>
+                                    <option>Area 5</option>
+                                    <option>Area 6</option>
+                                    <option>Area 7</option>
+                                    <option>Area 8</option>
+                                    <option>Area 9</option>
+                                    <option>Triangular</option>
+                                  </select>
+                                </div>
+                                <div class="col-sm-4">
+                                  <input type="number" placeholder="Road" class="form-control" id="inputField2">
+                                </div>
+                                <div class="col-sm-4">
+                                  <input type="number" placeholder="Plot" class="form-control" id="inputField3">
+                                </div>
+                              </div>
+
+                                <div class="form-group mt-2 file-upload">
+                                  <input id="file" type="file" />
+                                  <label for="file">Upload Picture of yourself</label>
+                                </div>
+
+                            <div class="form-group mt-2">
+                              <input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass" min="8" autocomplete="off">
                               <i class="input-icon uil uil-lock-alt"></i>
                             </div>
-                            <a href="#" class="btn mt-4">submit</a>
+                              <button type="submit" class="btn mt-4 btn-success">Sign Up!</button>
+
+                            </form>
                           </div>
                         </div>
                       </div>
@@ -137,6 +204,7 @@
       </section><!-- End About Section -->
 
       <!-- ======= Clients Section ======= -->
+
 
 
 
@@ -403,6 +471,22 @@
 
   <!-- Template Main JS File -->
   <script src="/js/main.js"></script>
+
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const input = document.querySelector('input[type="file"]');
+    const label = document.querySelector('.file-upload label');
+
+    input.addEventListener('change', function() {
+      if (input.value) {
+        label.innerText = input.value.split("\\").pop();
+      } else {
+        label.innerText = 'Choose file';
+      }
+    });
+  });
+</script>
 
 </body>
 
