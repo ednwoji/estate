@@ -16,4 +16,9 @@ public class VisitorsServiceImpl implements VisitorsService {
         visitorsRepository.save(visitors);
 
     }
+
+    @Override
+    public Visitors findId(String visitorId) {
+        return visitorsRepository.findByVisitorCode(visitorId);
+    }
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
@@ -52,5 +53,16 @@ public class VisitorController {
           visitorsService.saveNewVisitor(visitors);
           return ResponseEntity.ok("User Logged Successfully. Visitor's code is " +token);
       }
+    }
+
+    @PostMapping("/validateid")
+    public ResponseEntity<?> validateVisitorID(@RequestParam("visitorId") String visitorId){
+        Visitors visitors = visitorsService.findId(visitorId);
+        if(visitors == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid ID Number");
+        }
+        else {
+            return ResponseEntity.ok(visitors);
+        }
     }
 }

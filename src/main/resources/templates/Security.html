@@ -50,17 +50,34 @@
 
 <div id="form-container-1">
     <form id="form-1">
-        <label>Enter visitor name:</label>
-        <input type="text" id="visitor-name">
+        <label>Enter visitor ID:</label>
+        <input type="text" placeholder="Enter Visitor ID Number" id="visitor-name">
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
 
 <div id="form-container-2">
     <form id="form-2">
-        <label>Enter visitor email:</label>
+        <label>Visitor's Name:</label>
+        <input type="text" id="visitor-name">
+
+        <label>Visitor's Email:</label>
         <input type="text" id="visitor-email">
-        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <label>Visitor's Phone:</label>
+        <input type="text" id="visitor-phone">
+
+        <label>Duration of Stay:</label>
+        <input type="text" id="visitor-duration">
+
+        <label>Address of Visit:</label>
+        <input type="text" id="visitor-address">
+
+        <label>Whom to See:</label>
+        <input type="text" id="visitor-resident">
+
+
+        <button type="submit" class="btn btn-primary">Approve Visitor</button>
     </form>
 </div>
 
@@ -100,5 +117,41 @@
 			100% { opacity: 1; }
 		}
 	</style>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#form-1').on('submit', function(event) {
+      event.preventDefault(); // prevent the default form submission
+
+      // send the AJAX request
+      $.ajax({
+        url: '/visitor/validateid', // replace with the URL of your Spring Boot backend login endpoint
+        method: 'post',
+        data: {
+          name: $('#visitor-name').val(),
+        },
+        success: function(data) {
+        console.log(data);
+        $('#visitor-email').val(data.visitor_email);
+        $('#visitor-phone').val(data.visitor_phone);
+        $('#visitor-duration').val(data.visitor_duration);
+        $('#visitor-address').val(data.location);
+        $('#visitor-resident').val(data.whomToSee);
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          // display error message to the user
+          if (jqXHR.responseText) {
+            $('#form-1').prepend('<div class="error">' + jqXHR.responseText + '</div>');
+           }
+        }
+      });
+    });
+  });
+</script>
+
+
 </body>
 </html>

@@ -2,7 +2,9 @@ package com.Estateapp.estate.Controller;
 
 
 import com.Estateapp.estate.Entity.Users;
+import com.Estateapp.estate.Entity.Visitors;
 import com.Estateapp.estate.Repository.UsersRepository;
+import com.Estateapp.estate.Repository.VisitorsRepository;
 import com.Estateapp.estate.Service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,8 @@ import java.nio.file.Paths;
 @RequestMapping("/web")
 @Slf4j
 public class WebController {
+    @Autowired
+    private VisitorsRepository visitorsRepository;
 
     @Autowired
     private UserService userService;
@@ -150,10 +154,10 @@ public class WebController {
 
     @GetMapping("/validate")
     public String securityPage() {
-
         return "Security";
-
     }
+
+
 
 
 
