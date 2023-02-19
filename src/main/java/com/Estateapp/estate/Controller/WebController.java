@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -124,6 +126,33 @@ public class WebController {
         Users users = (Users) session.getAttribute("userprofile");
         model.addAttribute("user", users);
         return "Dashboard";
+    }
+
+
+    @GetMapping("/sessionExpired")
+    public RedirectView sessionExpired(HttpServletResponse response) {
+
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
+        return new RedirectView("/web/logout", true, false, true);
+    }
+
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session, RedirectAttributes redirectAttributes)
+    {
+        session.invalidate();
+        redirectAttributes.addFlashAttribute("success", "Logged out Successfully");
+        return "redirect:/web/home";
+    }
+
+
+    @GetMapping("/validate")
+    public String securityPage() {
+
+        return "Security";
+
     }
 
 

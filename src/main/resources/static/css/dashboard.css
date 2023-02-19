@@ -9,7 +9,7 @@ body {
 }
 
 .card {
-    width: 350px;
+    width: 450px;
    background-color: #efefef;
     border: none;
     cursor: pointer;
@@ -140,11 +140,13 @@ hr .new1 {
 
  .error {
   color: red;
+  font-size: initial;
   }
 
   .success {
-    color: green;
-    }
+   color: green;
+   font-size: initial;
+   }
 
 
 
@@ -168,7 +170,7 @@ hr .new1 {
   width: 90%;
   max-width: 500px;
   color: white;
-  height: 105%;
+  height: 70%;
 }
 
 
@@ -180,6 +182,25 @@ hr .new1 {
   color: black;
   font-size: medium;
 }
+
+#show-form-btn{
+
+    background-color: Green;
+    border: 1px solid #543800;
+}
+
+#show-transact-btn{
+
+    background-color: #FFB114;
+    border: 1px solid #543800;
+}
+
+#logout-btn{
+
+    background-color: Red;
+    border: 1px solid #543800;
+}
+
 
 
 

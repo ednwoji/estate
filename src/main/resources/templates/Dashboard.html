@@ -86,32 +86,44 @@
                 </div>
 
 
+
+                <div class="card-back">
+                    <div class="center-wrap">
+                        <div class="section text-center">
+
                 <div id="trans-form-container" style="display: none;">
 
 
 
                     <form id="paymentForm">
 
-                        <button id="close-form-btn" class="close">
+                        <h3 class="mt-3">Fill below details to pay your security due</h3>
+
+
+                        <button id="close-payform-btn" class="close">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </button>
 
                         <div class="form-group mt-3">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email-address"  required />
+                        <input type="email" id="email-address" placeholder="Enter Email Address"  required />
                     </div>
                     <div class="form-group mt-2" >
                         <label for="amount">Amount</label>
-                        <input type="tel" id="amount" required />
+                        <input type="tel" id="amount" placeholder="Enter Amount" required />
                     </div>
                     <div class="form-group mt-2">
-                        <label for="first-name">Name</label>
-                        <input type="text" id="first-name" />
+                        <label for="first-name">Full Name</label>
+                        <input type="text" id="first-name" th:value="${session.user}" placeholder="Enter Name" readonly />
                     </div>
                     <div class="form-submit">
                         <button type="submit" class="btn1 btn-dark" onclick="payWithPaystack()"> Make Payment </button>
                     </div>
                 </form>
+
+                </div>
+                        </div>
+                    </div>
 
                 <script src="https://js.paystack.co/v1/inline.js"></script>
 
@@ -139,7 +151,7 @@
             <div class="d-flex flex-row justify-content-center align-items-center mt-3">
                 <span class="number">1069 <span class="follow">Followers</span></span> </div>
             <div class=" d-flex mt-2">
-                <button id="show-form-btn" class="btn1 btn-dark">Log Visitor</button><button id="show-transact-btn" class="btn1 btn-dark">Make Payments</button>
+                <button id="show-form-btn" class="btn1 btn-dark">Log Visitor</button><button id="show-transact-btn" class="btn1 btn-dark">Make Payments</button><button  id="logout-btn" class="btn1 btn-dark"><a th:href="@{/web/sessionExpired}" style="text-decoration:none;">Log Out</a></button>
             </div>
 
 
@@ -159,6 +171,7 @@ $(document).ready(function() {
     $('#main-screen').toggle();
   });
 
+
   $('#close-form-btn').click(function() {
     $('#form-container').slideUp(function() {
      $('#main-screen').fadeIn();
@@ -176,7 +189,7 @@ $(document).ready(function() {
     $('#main-screen').toggle();
   });
 
-  $('#close-form-btn').click(function() {
+  $('#close-payform-btn').click(function() {
     $('#trans-form-container').slideUp(function() {
      $('#main-screen').fadeIn();
     });
@@ -225,17 +238,26 @@ $(document).ready(function() {
 
 <script>
 
-    const paymentForm = document.getElementById('paymentForm');
-paymentForm.addEventListener("submit", payWithPaystack, false);
-function payWithPaystack(e) {
-  e.preventDefault();
+    const name = document.getElementById('first-name').value;
+    const result = name.replace(/ /g, '_');
 
-  let handler = PaystackPop.setup({
+    const randomNumber = Math.floor(Math.random() * 900000) + 100000;
+
+    const ref = result.concat('_', randomNumber);
+    console.log(ref);
+
+    const paymentForm = document.getElementById('paymentForm');
+    paymentForm.addEventListener("submit", payWithPaystack, false);
+    function payWithPaystack(e) {
+        e.preventDefault();
+
+
+    let handler = PaystackPop.setup({
     key: 'pk_test_66d623dd735b4fb516d1ea92a07e335faff325f3', // Replace with your public key
     email: document.getElementById('email-address').value,
     amount: document.getElementById('amount').value * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
     currency: 'NGN', // Use GHS for Ghana Cedis or USD for US Dollars
-    ref: 'YOUR_REFERENCE',
+    ref: ref,
     callback: function(response) {
       var reference = response.reference;
       alert('Payment complete! Reference: ' + reference);
@@ -245,6 +267,21 @@ function payWithPaystack(e) {
     },
   });
   handler.openIframe();
+
+    $.ajax({
+        url: '/txns/log',
+        method: 'post',
+        data: {
+
+            name: document.getElementById('first-name').value,
+            email: document.getElementById('email-address').value,
+            amount: document.getElementById('amount').value,
+            ref: ref
+        },
+
+      });
+
+
 }</script>
 
 
