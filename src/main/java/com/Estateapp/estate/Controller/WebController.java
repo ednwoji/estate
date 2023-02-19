@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -105,6 +106,8 @@ public class WebController {
         } else {
 
             session.setAttribute("user", user.getName());
+            session.setAttribute("address", user.getHouse_address());
+            session.setAttribute("userprofile", user);
             session.setAttribute("url", "/"+user.getName()+".jpg");
             // return a success response with status code 200 (OK)
             return ResponseEntity.ok("Login successful");
@@ -116,8 +119,10 @@ public class WebController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboardPage() {
+    public String dashboardPage(HttpSession session, Model model) {
 
+        Users users = (Users) session.getAttribute("userprofile");
+        model.addAttribute("user", users);
         return "Dashboard";
     }
 

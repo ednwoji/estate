@@ -53,6 +53,11 @@
     padding: 8px 15px;
     border-radius: 4px;
     cursor: pointer;
+
+  }
+
+  .error {
+  color: red;
   }
 </style>
 
@@ -225,54 +230,41 @@
         <div class="container">
 
           <div class="section-title" data-aos="fade-down">
-            <span>Services</span>
-            <h2>Services</h2>
-            <p>Sit sint consectetur velit quisquam cupiditate impedit suscipit alias</p>
+            <span>About</span>
+            <h2>About</h2>
+            <p>New Haven Estate Iba</p>
           </div>
 
           <div class="row">
             <div class="col-md-6">
               <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
                 <i class="bi bi-briefcase" style="color: #0ea5e0;"></i>
-                <h4><a href="#">Lorem Ipsum</a></h4>
-                <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+                <h4><a href="#">Proximity to the island</a></h4>
+                <p>New Haven estate is very close to the island</p>
               </div>
             </div>
             <div class="col-md-6">
               <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
                 <i class="bi bi-card-checklist" style="color: #07cc70;"></i>
-                <h4><a href="#">Dolor Sitema</a></h4>
-                <p>Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+                <h4><a href="#">Security</a></h4>
+                <p>New Haven Estate has very trained security personnel thereby making the estate safe from attacks</p>
               </div>
             </div>
             <div class="col-md-6">
               <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
                 <i class="bi bi-bar-chart" style="color: #e40373;"></i>
-                <h4><a href="#">Sed ut perspiciatis</a></h4>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+                <h4><a href="#">Good Road Network</a></h4>
+                <p>New Haven Estate has very good road network and many more roads which are still under construction</p>
               </div>
             </div>
             <div class="col-md-6">
               <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
                 <i class="bi bi-binoculars" style="color: #f0b103;"></i>
-                <h4><a href="#">Nemo Enim</a></h4>
-                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                <h4><a href="#">Beautiful Apartments</a></h4>
+                <p>Houses built in New Haven Estate are built using modern technologies and made to be comfortable for habitants</p>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="icon-box" data-aos="fade-up" data-aos-delay="500">
-                <i class="bi bi-brightness-high" style="color: #3145fa;"></i>
-                <h4><a href="#">Magni Dolore</a></h4>
-                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="icon-box" data-aos="fade-up" data-aos-delay="600">
-                <i class="bi bi-calendar4-week" style="color: #a00098;"></i>
-                <h4><a href="#">Eiusmod Tempor</a></h4>
-                <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
-              </div>
-            </div>
+
           </div>
 
         </div>
@@ -522,7 +514,7 @@
         },
         error: function(jqXHR, textStatus, errorThrown) {
           // display error message to the user
-          $('#login-form').append('<div class="error">Invalid username or password</div>');
+          $('#login-form').prepend('<div class="error">Invalid username or password</div>');
         }
       });
     });
