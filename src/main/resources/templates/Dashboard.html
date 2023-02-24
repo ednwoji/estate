@@ -50,6 +50,12 @@
                             <i class="input-icon uil uil-at"></i>
                         </div>
 
+
+                        <div class="form-group mt-2">
+                            <input type="email" name="email" class="form-style" placeholder="Visitor's Email Address" id="vemail" autocomplete="off" required>
+                            <i class="input-icon uil uil-at"></i>
+                        </div>
+
                         <div class="form-group mt-2">
                             <input type="tel" name="phone" class="form-style" placeholder="Visitor's Mobile Number" id="vphone" autocomplete="off" required>
                             <i class="input-icon uil uil-at"></i>
@@ -63,12 +69,12 @@
 
 
                         <div class="form-group mt-2">
-                            <input type="text" name="location" th:value="${session.address}" class="form-style" placeholder="Location visiting" id="vlocation" autocomplete="off" readonly required>
+                            <input type="hidden" name="location" th:value="${session.address}" class="form-style" placeholder="Location visiting" id="vlocation" autocomplete="off" readonly required>
                             <i class="input-icon uil uil-at"></i>
                         </div>
 
                         <div class="form-group mt-2">
-                            <input type="text" name="resident" th:value="${session.user}" class="form-style" placeholder="Whom to See" id="resident" autocomplete="off" readonly required>
+                            <input type="hidden" name="resident" th:value="${session.user}" class="form-style" placeholder="Whom to See" id="resident" autocomplete="off" readonly required>
                             <i class="input-icon uil uil-at"></i>
                         </div>
 

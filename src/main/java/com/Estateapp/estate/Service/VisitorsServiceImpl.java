@@ -21,4 +21,9 @@ public class VisitorsServiceImpl implements VisitorsService {
     public Visitors findId(String visitorId) {
         return visitorsRepository.findByVisitorCode(visitorId);
     }
+
+    @Override
+    public void updateVisitor(String entryStatus, String visitorId) {
+//        visitorsRepository.updateVisitor(entryStatus, visitorId);
+    }
 }

@@ -24,5 +24,6 @@ public class Visitors {
     private String location;
     private String visitor_code;
     private String whomToSee;
+    private String entry_status;
 
 }

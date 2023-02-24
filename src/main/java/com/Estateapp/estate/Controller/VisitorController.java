@@ -6,14 +6,12 @@ import com.Estateapp.estate.Helpers.Token;
 import com.Estateapp.estate.Repository.UsersRepository;
 import com.Estateapp.estate.Service.VisitorsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -49,14 +47,15 @@ public class VisitorController {
           visitors.setVisitor_email(email);
           visitors.setVisitor_phone(visitorPhone);
           visitors.setWhomToSee(whomToSee);
+          visitors.setEntry_status("Pending");
 
           visitorsService.saveNewVisitor(visitors);
           return ResponseEntity.ok("User Logged Successfully. Visitor's code is " +token);
       }
     }
 
-    @PostMapping("/validateid")
-    public ResponseEntity<?> validateVisitorID(@RequestParam("visitorId") String visitorId){
+    @GetMapping("/validateid/{visitorId}")
+    public ResponseEntity<?> validateVisitorID(@PathVariable("visitorId") String visitorId){
         Visitors visitors = visitorsService.findId(visitorId);
         if(visitors == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid ID Number");
@@ -64,5 +63,26 @@ public class VisitorController {
         else {
             return ResponseEntity.ok(visitors);
         }
+
     }
+
+    @GetMapping("/check/{visitorId}")
+    public ResponseEntity<?> approveOrDeclineVisitor(@PathVariable("visitorId") String visitorId){
+        Visitors visitors = visitorsService.findId(visitorId);
+
+        if(visitors == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong Visitor ID");
+        }
+
+        else {
+
+            visitors.setEntry_status("Approved");
+            visitorsService.saveNewVisitor(visitors);
+//        visitorsService.updateVisitor("Approved", visitorId);
+            return ResponseEntity.ok("Updated Successfully");
+        }
+    }
+
+
+
 }
