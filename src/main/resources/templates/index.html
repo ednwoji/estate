@@ -151,7 +151,7 @@
                         <div class="center-wrap">
                           <div class="section text-center">
                             <h4 class="mb-3 pb-3">Sign Up</h4>
-                            <form action="#" th:action="@{/web/upload}" method="POST" enctype="multipart/form-data">
+                            <form action="#" th:action="@{/upload}" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                               <input type="text" name="surname" class="form-style" placeholder="Your Surname" id="surname" autocomplete="off" required>
                               <i class="input-icon uil uil-user"></i>
@@ -501,7 +501,7 @@
 
       // send the AJAX request
       $.ajax({
-        url: '/web/login', // replace with the URL of your Spring Boot backend login endpoint
+        url: '/login', // replace with the URL of your Spring Boot backend login endpoint
         method: 'post',
         data: {
           username: $('#logemail').val(),

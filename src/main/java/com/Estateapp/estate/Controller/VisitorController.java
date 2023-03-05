@@ -5,6 +5,7 @@ import com.Estateapp.estate.Entity.Visitors;
 import com.Estateapp.estate.Helpers.Token;
 import com.Estateapp.estate.Repository.UsersRepository;
 import com.Estateapp.estate.Service.VisitorsService;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.threeten.bp.LocalDate;
 
 import javax.servlet.http.HttpSession;
 
@@ -38,7 +40,11 @@ public class VisitorController {
 
       else {
 
-          String token = visitorName+Token.generateToken();
+          LocalDate currentDate = LocalDate.now();
+          LocalDate expectedDepartureDate = currentDate.plusDays(3);
+          System.out.println(visitorName.replace(" ", "_"));
+
+          String token = visitorName.replace(" ", "_")+Token.generateToken();
 
           visitors.setVisitor_code(token);
           visitors.setVisitor_name(visitorName);
@@ -48,9 +54,10 @@ public class VisitorController {
           visitors.setVisitor_phone(visitorPhone);
           visitors.setWhomToSee(whomToSee);
           visitors.setEntry_status("Pending");
+          visitors.setExpectedDepartureDate(expectedDepartureDate);
 
           visitorsService.saveNewVisitor(visitors);
-          return ResponseEntity.ok("User Logged Successfully. Visitor's code is " +token);
+          return ResponseEntity.ok("User Logged Successfully. Visitor's code is " +token+ " and expected departure date is " +expectedDepartureDate);
       }
     }
 

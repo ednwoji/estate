@@ -3,6 +3,7 @@ package com.Estateapp.estate.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.threeten.bp.LocalDate;
 
 import javax.persistence.*;
 
@@ -25,5 +26,7 @@ public class Visitors {
     private String visitor_code;
     private String whomToSee;
     private String entry_status;
+
+    private LocalDate expectedDepartureDate;
 
 }

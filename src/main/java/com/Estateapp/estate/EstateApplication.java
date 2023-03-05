@@ -36,26 +36,26 @@ public class EstateApplication {
 		SpringApplication.run(EstateApplication.class, args);
 
 
-		String prompt = "Who is president of Nigeria?";
-
-		CloseableHttpClient httpClient = HttpClients.createDefault();
-
-		HttpPost httpPost = new HttpPost("https://api.openai.com/v1/engines/davinci-codex/completions");
-
-		httpPost.setHeader("Content-Type", "application/json");
-		httpPost.setHeader("Authorization", "Bearer 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");
-
-		StringEntity requestEntity = new StringEntity("{\"prompt\":\"" + prompt + "\",\"max_tokens\":1,\"temperature\":0,\"n\":1,\"stop\":\"\\n\"}");
-		httpPost.setEntity(requestEntity);
-
-		CloseableHttpResponse response = httpClient.execute(httpPost);
-		try {
-			HttpEntity responseEntity = response.getEntity();
-			String responseBody = EntityUtils.toString(responseEntity);
-			System.out.println(responseBody);
-		} finally {
-			response.close();
-		}
+//		String prompt = "Who is president of Nigeria?";
+//
+//		CloseableHttpClient httpClient = HttpClients.createDefault();
+//
+//		HttpPost httpPost = new HttpPost("https://api.openai.com/v1/engines/davinci-codex/completions");
+//
+//		httpPost.setHeader("Content-Type", "application/json");
+//		httpPost.setHeader("Authorization", "Bearer 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");
+//
+//		StringEntity requestEntity = new StringEntity("{\"prompt\":\"" + prompt + "\",\"max_tokens\":1,\"temperature\":0,\"n\":1,\"stop\":\"\\n\"}");
+//		httpPost.setEntity(requestEntity);
+//
+//		CloseableHttpResponse response = httpClient.execute(httpPost);
+//		try {
+//			HttpEntity responseEntity = response.getEntity();
+//			String responseBody = EntityUtils.toString(responseEntity);
+//			System.out.println(responseBody);
+//		} finally {
+//			response.close();
+//		}
 	}
 
 }

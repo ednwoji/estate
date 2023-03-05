@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Repository
 public interface VisitorsRepository extends JpaRepository<Visitors, Long> {
@@ -15,10 +17,9 @@ public interface VisitorsRepository extends JpaRepository<Visitors, Long> {
     @Query(value = "SELECT * FROM visitors WHERE visitor_code = :visitor_code", nativeQuery = true)
     Visitors findByVisitorCode(@Param("visitor_code") String visitor_code);
 
-//    @Modifying
-//    @Query(value = "update visitors set entry_status = :entry_status WHERE visitor_code = :visitor_code", nativeQuery = true)
-//    @Transactional
-//    void checkVisitors(@Param("entry_status") String entryStatus, @Param("visitor_code") String visitorCode);
+
+    @Query(value = "SELECT * FROM visitors WHERE whom_to_see = :whom_to_see", nativeQuery = true)
+    List<Visitors> findAllVisitorsForAUser(@Param("whom_to_see") String resident);
 
 
 }

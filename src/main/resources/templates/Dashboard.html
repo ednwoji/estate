@@ -140,6 +140,66 @@
         </div>
     </div>
 
+
+
+
+
+
+<!--    <div th:if="${visitors != null}">-->
+
+<!--        <div class="container">-->
+<!--            <table class="table table-bordered table-striped">-->
+
+<!--                <thead>-->
+
+<!--                <tr>-->
+<!--                    <th>Visitor Name</th>-->
+<!--                    <th>Visitor Email</th>-->
+<!--                    <th>Visitor Phone</th>-->
+<!--                    <th>Expected Day of Departure</th>-->
+<!--                    <th>Status</th>-->
+<!--                </tr>-->
+
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                &lt;!&ndash;          <tr th:each="item : ${journals}">&ndash;&gt;-->
+<!--                <tr th:each="item : ${visitors}">-->
+
+<!--                    <td th:text="${item.visitor_name}"></td>-->
+<!--                    <td th:text="${item.visitor_email}"></td>-->
+<!--                    <td th:text="${item.visitor_phone}"></td>-->
+<!--                    <td th:text="${item.expectedDepartureDate}"></td>-->
+<!--                    <td th:text="${item.entry_status}"></td>-->
+<!--                    <td>-->
+<!--                        <div th:if="${item.entry_status eq 'Approved'}"  role="group">-->
+<!--                            <a th:href="@{/archive/edit/{id}(id=${item.id})}" class="btn btn-group-sm" th:text="Checkout"></a>-->
+<!--                        </div>-->
+
+<!--                        <div th:if="${item.entry_status eq 'Pending'}" role="group">-->
+<!--                            <a th:href="@{/archive/edit/{id}(id=${item.id})}" class="btn btn-group-sm" th:text="Edit"></a>-->
+
+<!--                            <a th:href="@{/archive/inactive/{id}(id=${item.id})}" onclick="return confirm('Do you want to Activate the ATM?', 'yes');" class="btn btn-group-sm" th:method="put" th:text="Delete Log"></a>-->
+<!--                        </div>-->
+
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+
+<!--                </thead>-->
+
+<!--            </table>-->
+
+<!--        </div>-->
+<!--    </div>-->
+
+
+
+
+
+
+
+
+
     <div id="main-screen" class="card p-4" style="background-color: #000000; color: white;">
         <div class=" image d-flex flex-column justify-content-center align-items-center">
             <button class="btn btn-secondary">
@@ -155,11 +215,14 @@
 <!--                <span><i class="fa fa-copy"></i></span>-->
             </div>
             <div class="d-flex flex-row justify-content-center align-items-center mt-3">
-                <span class="number">1069 <span class="follow">Followers</span></span> </div>
+                <span class="number">0 <span class="follow">/12 months paid</span></span> </div>
             <div class=" d-flex mt-2">
                 <button id="show-form-btn" class="btn1 btn-dark">Log Visitor</button><button id="show-transact-btn" class="btn1 btn-dark">Make Payments</button><button  id="logout-btn" class="btn1 btn-dark"><a th:href="@{/web/sessionExpired}" style="text-decoration:none;">Log Out</a></button>
             </div>
 
+            <div class=" d-flex mt-2">
+            <button id="show-visitors-btn" class="btn1 btn-dark">View Logged Visitors</button> <button id="show-txnview-btn" class="btn1 btn-dark">View Transactions</button>
+            </div>
 
 
 
