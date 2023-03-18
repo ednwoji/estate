@@ -1,29 +1,13 @@
 package com.Estateapp.estate;
 
 import com.google.gson.*;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
-import org.json.simple.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.nio.charset.StandardCharsets;
-import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @SpringBootApplication
 public class EstateApplication {
@@ -56,6 +40,17 @@ public class EstateApplication {
 //		} finally {
 //			response.close();
 //		}
+
+
+		File journalDirectory = new File("C:\\u01\\app\\oracle\\shared\\properties\\Terminal");
+//		File footageDirectory = new File(path+Upload.getBranch()+"\\"+Upload.getTerminal()+"\\"+"Footages");
+
+		if (!journalDirectory.exists()) {
+			boolean status = journalDirectory.mkdir();
+		}
+
+		Set<Character> matchedChars = new HashSet<>();
+
 	}
 
 }

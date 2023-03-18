@@ -35,6 +35,7 @@ public class VisitorController {
       Users user = (Users) session.getAttribute("userprofile");
       System.out.println(user.getPassword());
       if(!BCrypt.checkpw(password, user.getPassword())){
+
           return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Wrong password");
       }
 
