@@ -1,6 +1,7 @@
 package com.Estateapp.estate.Controller;
 
 import com.Estateapp.estate.Entity.Users;
+import com.Estateapp.estate.Entity.Visitors;
 import com.Estateapp.estate.Repository.UsersRepository;
 import com.Estateapp.estate.Repository.VisitorsRepository;
 import com.Estateapp.estate.Service.UserService;
@@ -21,6 +22,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Slf4j
@@ -41,7 +44,7 @@ public class AuthController {
 
     @GetMapping("/home")
     public String homePage() {
-        return "index";
+        return "Login";
     }
 
 
@@ -69,8 +72,8 @@ public class AuthController {
         try {
             userService.addNewUser(users);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("success", "User already exists on the DB");
-            return "redirect:/web/home";
+            redirectAttributes.addFlashAttribute("success", "Chief! You already have an account. Please sign in");
+            return "redirect:/home";
 
         }
 
@@ -78,7 +81,7 @@ public class AuthController {
             log.info("Only JPEG format is allowed.");
             redirectAttributes.addFlashAttribute("success", "Only JPEG format is allowed.");
 
-            return "redirect:/web/home";
+            return "redirect:/home";
         }
 
         try {
@@ -96,20 +99,44 @@ public class AuthController {
         return "redirect:/web/home";
     }
 
+    public void findVisitors() {
+
+        Visitors visitors = visitorsRepository.findByVisitorCode("Ekene NwojiXjD7Fv");
+//            int numberVisitors = visitors.size();
+        System.out.println(visitors);
+
+
+    }
+
 
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestParam("username") String email, @RequestParam("password") String userPassword, HttpSession session){
 
         Users user = usersRepository.findByEmail(email);
+
         if (user == null || !BCrypt.checkpw(userPassword,user.getPassword())) {
             // return an error response with status code 401 (Unauthorized)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         } else {
+                List<Visitors> visitors = visitorsRepository.findAllVisitorsForAUser(user.getName());
+                int numberVisitors = visitors.size();
+
+                String[] nameParts = user.getName().split(" ");
+                String surname = nameParts[0];
+
+                int family = usersRepository.checkFamilyMembers(surname, surname);
+
+                System.out.println(family);
+
 
             session.setAttribute("user", user.getName());
+            session.setAttribute("email", email);
+            session.setAttribute("phone", user.getPhone_number());
             session.setAttribute("address", user.getHouse_address());
             session.setAttribute("userprofile", user);
+            session.setAttribute("countvisitors", numberVisitors);
+            session.setAttribute("countFamily", family);
             session.setAttribute("url", "/"+user.getName()+".jpg");
             // return a success response with status code 200 (OK)
             return ResponseEntity.ok("Login successful");

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords"
+        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+    <meta name="description"
+        content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Visitors</title>
+    <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/EstateLogo1.png">
+    <!-- Custom CSS -->
+   <link href="/css/style.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+    <link href="/css/login.css" rel="stylesheet">
+    <script src="/js/login.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <![endif]-->
+
+    <style>
+
+    .tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+
+   .form-page {
+<!--  position: absolute;-->
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.form-styling input {
+  width: 100px; /* adjust width as needed */
+  height: 40px; /* adjust height as needed */
+  border: none;
+   border-radius: 25px; /* half of the height */
+  padding: 10px;
+  font-size: 18px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.current-page {
+  opacity: 1;
+  transform: translateX(0%);
+}
+    </style>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header" data-logobg="skin6">
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <a class="navbar-brand" th:href="@{/web/dashboard}">
+                        <!-- Logo icon -->
+                        <b class="logo-icon">
+                            <!-- Dark Logo icon -->
+                            <img src="/plugins/images/EstateLogo1.png" alt="homepage" />
+                        </b>
+                    </a>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
+                        href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                    <ul class="navbar-nav d-none d-md-block d-lg-none">
+                        <li class="nav-item">
+                            <a class="nav-toggler nav-link waves-effect waves-light text-white"
+                                href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                        </li>
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- Right side toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav ms-auto d-flex align-items-center">
+
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                        <li>
+                            <a class="profile-pic" th:href="@{/web/logout}">
+                                <span class="text-white font-medium" th:text="Logout"></span></a>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <!-- User Profile-->
+                        <li class="sidebar-item pt-2">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/dashboard}"
+                               aria-expanded="false">
+                                <i class="far fa-clock" aria-hidden="true"></i>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/profile}"
+                               aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">Profile</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/view}"
+                               aria-expanded="false">
+                                <i class="fa fa-columns" aria-hidden="true"></i>
+                                <span class="hide-menu">View Visitors</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/visitors}"
+                               aria-expanded="false">
+                                <i class=" fas fa-edit" aria-hidden="true"></i>
+                                <span class="hide-menu">Add Visitors</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper" style="min-height: 250px;">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb bg-white">
+                <div class="row align-items-center">
+
+                    <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
+                        <h4 class="page-title">Chief! Please fill this form to log your visitors</h4>
+                    </div>
+
+
+
+<!--                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">-->
+<!--                        <div class="d-md-flex">-->
+<!--                            <ol class="breadcrumb ms-auto">-->
+<!--                                <li><a href="#" class="fw-normal">Chief! Please fill this form to log visitors</a></li>-->
+<!--                            </ol>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+
+            <div class="container-fluid">
+
+                <form id="my-form" class="container">
+                    <div class="form-page current-page">
+                        <div class="form-group">
+                            <label for="vname">Visitor's Name:</label>
+                            <input class="form-control" type="text" id="vname" name="vname">
+                        </div>
+                        <button type="button" class="btn btn-primary mt-3 next-button">Next</button>
+                    </div>
+                    <div class="form-page mt-3">
+                        <div class="form-group">
+                            <label for="vemail">Visitor's Email:</label>
+                            <input class="form-control" type="text" id="vemail" name="vemail">
+                        </div>
+                        <button type="button" class="btn btn-primary mt-3 next-button">Next</button>
+                    </div>
+                    <div class="form-page mt-3">
+                        <div class="form-group">
+                            <label for="vphone">Visitor's Phone:</label>
+                            <input class="form-control" type="text" id="vphone" name="vphone">
+                        </div>
+                        <button type="button" class="btn btn-primary mt-3 next-button">Next</button>
+                    </div>
+                    <div class="form-page mt-3">
+                        <div class="form-group">
+                            <label for="vduration">Estimated number of days to stay:</label>
+                            <input class="form-control" type="text" id="vduration" name="duration">
+                        </div>
+                        <button type="button" class="btn btn-primary mt-3 next-button">Next</button>
+                    </div>
+                    <div class="form-page mt-3">
+                        <div class="form-group">
+                            <label for="vlocation">Location Visiting:</label>
+                            <input class="form-control" th:value="${session.address}" type="text" id="vlocation" name="location" disabled>
+                        </div>
+                        <button type="button" class="btn btn-primary mt-3 next-button">Next</button>
+                    </div>
+                    <div class="form-page mt-3">
+                        <div class="form-group">
+                            <label for="userpass">Enter Password:</label>
+                            <input class="form-control" type="password" id="userpass" name="logpass">
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                    </div>
+
+
+                        <input th:value="${session.user}" type="hidden" id="resident" name="resident">
+
+
+                    </form>
+
+
+
+
+                    <!--                    <form id="my-form">-->
+<!--                        <div class="form-page current-page mt-3">-->
+<!--                            <label for="input1">Input 1:</label>-->
+<!--                            <input class="form-styling" type="text" id="input1" name="input1">-->
+<!--                            <button type="button" class="next-button">Next</button>-->
+<!--                        </div>-->
+<!--                        <div class="form-page mt-3">-->
+<!--                            <label for="input2">Input 2:</label>-->
+<!--                            <input class="form-styling" type="text" id="input2" name="input2">-->
+<!--                            <button type="button" class="next-button">Next</button>-->
+<!--                        </div>-->
+<!--                        <div class="form-page mt-3">-->
+<!--                            <label for="input3">Input 3:</label>-->
+<!--                            <input class="form-styling" type="text" id="input3" name="input3">-->
+<!--                            <button type="submit">Submit</button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+
+
+
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <footer class="footer text-center"> 2023 © Visitor's Portal brought to you by <a
+                    href="#">David Nwoji</a>
+            </footer>
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/app-style-switcher.js"></script>
+    <!--Wave Effects -->
+    <script src="/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="/js/custom.js"></script>
+
+<script>
+
+const form = document.querySelector('#my-form');
+const pages = form.querySelectorAll('.form-page');
+const nextButtons = form.querySelectorAll('.next-button');
+
+let currentPage = 0;
+
+nextButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    // hide current page
+    button.classList.add('hide');
+<!--    pages[currentPage].classList.remove('current-page');-->
+
+    // show next page
+    currentPage++;
+    pages[currentPage].classList.add('current-page');
+  });
+});
+
+
+
+
+  $(document).ready(function() {
+    $('#my-form').on('submit', function(event) {
+      event.preventDefault(); // prevent the default form submission
+
+      // send the AJAX request
+      $.ajax({
+        url: '/visitor/log', // replace with the URL of your Spring Boot backend login endpoint
+        method: 'post',
+        data: {
+          name: $('#vname').val(),
+          email: $('#vemail').val(),
+          phone: $('#vphone').val(),
+          days: $('#vduration').val(),
+          location: $('#vlocation').val(),
+          password: $('#userpass').val(),
+          resident: $('#resident').val()
+        },
+        success: function(data) {
+
+         $('#my-form')[0].reset();
+         $('#my-form').prepend('<div class="alert alert-info text-center border border-info">' + data + '</div>');
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          // display error message to the user
+          if (jqXHR.responseText) {
+            $('#my-form').prepend('<div class="error">' + jqXHR.responseText + '</div>');
+           }
+        }
+      });
+    });
+  });
+
+</script>
+</body>
+
+</html>

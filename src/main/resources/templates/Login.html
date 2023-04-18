@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/EstateLogo1.png">
+
+  <link href="/css/login.css" rel="stylesheet">
+  <script src="/js/login.js"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+
+
+  <style>
+  .file-upload {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .file-upload input[type="file"] {
+    display: none;
+  }
+
+  .file-upload label {
+    background-color: #38B2AC;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+
+  }
+
+  .error {
+  color: red;
+  }
+</style>
+
+
+</head>
+<body>
+
+<div class="container">
+
+  <div th:if="${success != null}">
+    <div class="alert alert-info text-center border border-info">
+      <b th:text="${success}"/>
+    </div>
+  </div>
+
+  <div class="frame">
+
+    <div class="nav">
+      <ul class="links">
+        <li class="signin-active"><a class="btn">Existing User</a></li>
+        <li class="signup-inactive"><a class="btn">New User</a></li>
+      </ul>
+
+
+
+    </div>
+    <div ng-app ng-init="checked = false">
+        <form class="form-signin" id="login-form" name="form" method="post">
+          <div class="form-group">
+            <input class="form-styling" type="email" name="logemail" placeholder="Your Email" id="logemail" autocomplete="off">
+            <i class="input-icon uil uil-at"></i>
+          </div>
+          <div class="form-group mt-2">
+            <input class="form-styling" type="password" name="logpass" placeholder="Your Password" id="logpass" autocomplete="off">
+            <i class="input-icon uil uil-lock-alt"></i>
+          </div>
+          <button type="submit">Login Chief!</button>
+<!--          <p class="mb-0 mt-4 text-center"><a href="#0" class="link">Forgot your password?</a></p>-->
+      </form>
+
+        <form class="form-signup" action="#" th:action="@{/upload}" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <input class="form-styling" type="text" name="surname" placeholder="Your Surname" id="surname" autocomplete="off" required>
+            <i class="input-icon uil uil-user"></i>
+          </div>
+
+          <div class="form-group mt-2">
+            <input class="form-styling" type="text" name="fname"  placeholder="Your First Name" id="fname" autocomplete="off" required>
+            <i class="input-icon uil uil-at"></i>
+          </div>
+
+          <div class="form-group mt-2">
+            <input class="form-styling" type="email" name="logemail" placeholder="Your Email" id="logemail" autocomplete="off" required>
+            <i class="input-icon uil uil-at"></i>
+          </div>
+
+          <div class="form-group mt-2">
+            <input class="form-styling" type="tel" name="phone" placeholder="Your Mobile Number" id="phone" autocomplete="off" required>
+            <i class="input-icon uil uil-at"></i>
+          </div>
+
+          <div class="form-group d-flex justify-content-between mt-2">
+            <div class="col-sm-4">
+              <select name="area" class="form-styling" id="selectField1">
+                <option disabled selected>Area</option>
+                <option>Area 1</option>
+                <option>Area 2</option>
+                <option>Area 3</option>
+                <option>Area 4</option>
+                <option>Area 5</option>
+                <option>Area 6</option>
+                <option>Area 7</option>
+                <option>Area 8</option>
+                <option>Area 9</option>
+                <option>Triangular</option>
+              </select>
+            </div>
+            <div class="col-sm-4">
+              <input type="number" name="road" placeholder="Road" class="form-styling" id="inputField2">
+            </div>
+            <div class="col-sm-4">
+              <input type="number" name="plot" placeholder="Plot" class="form-styling"id="inputField3">
+            </div>
+          </div>
+
+          <div class="form-group mt-2 file-upload">
+            <input id="file" name="file" type="file" />
+            <label for="file">Upload Picture of yourself</label>
+          </div>
+
+          <div class="form-group mt-2">
+            <input class="form-styling" type="password" name="logpass" placeholder="Your Password" id="logpass" min="8" autocomplete="off">
+            <i class="input-icon uil uil-lock-alt"></i>
+          </div>
+          <button type="submit" class="btn mt-4 btn-success">Sign Up!</button>
+
+      </form>
+    </div>
+    <div class="forgot"> <a href="#">Forgot your password?</a> </div>
+<!--    <div>-->
+<!--      <div class="cover-photo"></div>-->
+<!--      <div class="profile-photo"></div>-->
+<!--&lt;!&ndash;      <h1 class="welcome">Welcome,User</h1> <a class="btn-goback" value="Refresh" onClick="history.go()">Go back</a>&ndash;&gt;-->
+<!--    </div>-->
+  </div>
+<!--  <a id="refresh" value="Refresh" onClick="history.go()"> -->
+<!--    <svg class="refreshicon" version="1.1" id="Capa_1" x="0px" y="0px" width="25px" height="25px" viewBox="0 0 322.447 322.447" style="enable-background:new 0 0 322.447 322.447;" xml:space="preserve">-->
+<!--            <path d="M321.832,230.327c-2.133-6.565-9.184-10.154-15.75-8.025l-16.254,5.281C299.785,206.991,305,184.347,305,161.224 c0-84.089-68.41-152.5-152.5-152.5C68.411,8.724,0,77.135,0,161.224s68.411,152.5,152.5,152.5c6.903,0,12.5-5.597,12.5-12.5 c0-6.902-5.597-12.5-12.5-12.5c-70.304,0-127.5-57.195-127.5-127.5c0-70.304,57.196-127.5,127.5-127.5 c70.305,0,127.5,57.196,127.5,127.5c0,19.372-4.371,38.337-12.723,55.568l-5.553-17.096c-2.133-6.564-9.186-10.156-15.75-8.025 c-6.566,2.134-10.16,9.186-8.027,15.751l14.74,45.368c1.715,5.283,6.615,8.642,11.885,8.642c1.279,0,2.582-0.198,3.865-0.614 l45.369-14.738C320.371,243.946,323.965,236.895,321.832,230.327z" /> -->
+<!--    </svg> -->
+<!--  </a>-->
+</div>
+
+<script src="/js/login.js"></script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const input = document.querySelector('input[type="file"]');
+    const label = document.querySelector('.file-upload label');
+
+    input.addEventListener('change', function() {
+      if (input.value) {
+        label.innerText = input.value.split("\\").pop();
+      } else {
+        label.innerText = 'Choose file';
+      }
+    });
+  });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#login-form').on('submit', function(event) {
+      event.preventDefault(); // prevent the default form submission
+
+      // send the AJAX request
+      $.ajax({
+        url: '/login', // replace with the URL of your Spring Boot backend login endpoint
+        method: 'post',
+        data: {
+          username: $('#logemail').val(),
+          password: $('#logpass').val()
+        },
+        success: function(data) {
+
+          window.location.href = '/web/dashboard';
+          // handle successful login (e.g. redirect to dashboard page)
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          // display error message to the user
+          $('#login-form').prepend('<div class="error">Invalid username or password</div>');
+        }
+      });
+    });
+  });
+</script>
+
+
+
+</body>
+</html>

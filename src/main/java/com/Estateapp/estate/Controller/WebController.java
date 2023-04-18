@@ -34,17 +34,64 @@ public class WebController {
     private UsersRepository usersRepository;
 
 
+//    @GetMapping("/dashboard")
+//    public String dashboardPage(HttpSession session, Model model) {
+//
+////        Users users = (Users) session.getAttribute("userprofile");
+////
+////        List<Visitors> visitors = visitorsRepository.findAllVisitorsForAUser(users.getName());
+////        model.addAttribute("user", users);
+//        return "Dashboard";
+//    }
+
     @GetMapping("/dashboard")
-    public String dashboardPage(HttpSession session, Model model) {
+    public String dashboardPage() {
 
-        Users users = (Users) session.getAttribute("userprofile");
-
-        List<Visitors> visitors = visitorsRepository.findAllVisitorsForAUser(users.getName());
-//        System.out.println(visitors);
-//        model.addAttribute("visitors", visitors);
-        model.addAttribute("user", users);
+//        Users users = (Users) session.getAttribute("userprofile");
+//
+//        List<Visitors> visitors = visitorsRepository.findAllVisitorsForAUser(users.getName());
+//        model.addAttribute("user", users);
         return "Dashboard";
     }
+
+
+
+    @GetMapping("/profile")
+    public String profilePage() {
+
+//        Users users = (Users) session.getAttribute("userprofile");
+//
+//        List<Visitors> visitors = visitorsRepository.findAllVisitorsForAUser(users.getName());
+//        model.addAttribute("user", users);
+        return "profile";
+    }
+
+
+    @GetMapping("/visitors")
+    public String addVisitorPage() {
+        return "AddVisitors";
+    }
+
+
+    @GetMapping("/view")
+    public String viewVisitorsPage(HttpSession session, Model model) {
+
+        List<Visitors> visitors = visitorsRepository.findAll();
+        List<Visitors> unapprovedVisitors = visitorsRepository.findVisitorsByStatus("Pending");
+        List<Visitors> approvedVisitors = visitorsRepository.findVisitorsByStatus("Approved");
+
+        model.addAttribute("allVisitors", visitors);
+        model.addAttribute("unapprovedVisitors", unapprovedVisitors);
+        model.addAttribute("approvedVisitors", approvedVisitors);
+
+//        session.setAttribute("allVisitors", visitors);
+//        session.setAttribute("unapprovedVisitors", unapprovedVisitors);
+//        session.setAttribute("approvedVisitors", approvedVisitors);
+
+        return "viewvisitors";
+    }
+
+
 
 
     @GetMapping("/sessionExpired")

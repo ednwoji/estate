@@ -14,4 +14,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     Users findByEmail(String email);
 
 
+    @Query(value = "SELECT COUNT(*) FROM users WHERE name LIKE %:first_name% AND SUBSTRING_INDEX(name, ' ', 1) = :second_name", nativeQuery = true)
+    int checkFamilyMembers(@Param("first_name") String surname, @Param("second_name") String surnames);
+
 }

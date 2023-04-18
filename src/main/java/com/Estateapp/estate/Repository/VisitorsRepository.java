@@ -22,4 +22,9 @@ public interface VisitorsRepository extends JpaRepository<Visitors, Long> {
     List<Visitors> findAllVisitorsForAUser(@Param("whom_to_see") String resident);
 
 
+    @Query(value = "SELECT * FROM visitors WHERE entry_status = :entry_status", nativeQuery = true)
+    List<Visitors> findVisitorsByStatus(@Param("entry_status") String status);
+
+
+    List<Visitors> findByResidentEmail(String email);
 }

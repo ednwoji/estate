@@ -24,6 +24,9 @@ public class VisitorController {
     @Autowired
     private VisitorsService visitorsService;
 
+
+
+
     @PostMapping("/log")
     public ResponseEntity<String> logVisitor(@RequestParam("name") String visitorName, @RequestParam("email") String email,
                                                @RequestParam("phone") String visitorPhone, @RequestParam("location") String location,
@@ -55,7 +58,7 @@ public class VisitorController {
           visitors.setVisitor_phone(visitorPhone);
           visitors.setWhomToSee(whomToSee);
           visitors.setEntry_status("Pending");
-          visitors.setExpectedDepartureDate(expectedDepartureDate);
+          visitors.setExpectedDepartureDate(String.valueOf(expectedDepartureDate));
 
           visitorsService.saveNewVisitor(visitors);
           return ResponseEntity.ok("User Logged Successfully. Visitor's code is " +token+ " and expected departure date is " +expectedDepartureDate);
