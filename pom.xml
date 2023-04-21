@@ -89,6 +89,7 @@
 		</dependency>
 
 
+<!--		For Generating QR codes-->
 		<dependency>
 			<groupId>com.google.zxing</groupId>
 			<artifactId>core</artifactId>
@@ -102,6 +103,22 @@
 		</dependency>
 		<!-- Thanks for using https://jar-download.com -->
 
+<!--		End of using QR codes-->
+
+<!--For Sending mails-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
+
+<!--		End of mails dependency-->
 
 
 	</dependencies>

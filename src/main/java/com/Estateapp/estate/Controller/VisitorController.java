@@ -2,6 +2,7 @@ package com.Estateapp.estate.Controller;
 
 import com.Estateapp.estate.Entity.Users;
 import com.Estateapp.estate.Entity.Visitors;
+import com.Estateapp.estate.Helpers.EmailSenderService;
 import com.Estateapp.estate.Helpers.Token;
 import com.Estateapp.estate.Repository.UsersRepository;
 import com.Estateapp.estate.Repository.VisitorsRepository;
@@ -22,6 +23,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.threeten.bp.LocalDate;
 
+import javax.mail.util.ByteArrayDataSource;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.io.ByteArrayOutputStream;
@@ -51,6 +55,9 @@ public class VisitorController {
     @Autowired
     private VisitorsRepository visitorsRepository;
 
+
+    @Autowired
+    private EmailSenderService emailSenderService;
 
     @PostMapping("/log")
     public ResponseEntity<Map<String, Object>> logVisitor(@RequestParam("name") String visitorName, @RequestParam("email") String email,
@@ -83,11 +90,6 @@ public class VisitorController {
 
           String expectedDepartureDate = sdf.format(date);
 
-//          LocalDate currentDate = LocalDate.now();
-//          Date departureDate = dateOfVisit.;
-//          LocalDate expectedDepartureDate = currentDate.plusDays(days);
-//          System.out.println(visitorName.replace(" ", "_"));
-
           String token = visitorName.replace(" ", "_")+Token.generateToken();
 
           visitors.setDateOfVisit(sdf.format(sdf.parse(dateOfVisit)));
@@ -103,14 +105,15 @@ public class VisitorController {
 
           visitorsService.saveNewVisitor(visitors);
 
-
-
           String text = "User Logged Successfully. Visitor's code is " + token + " and expected departure date is " + expectedDepartureDate;
+          String data = "Visitor's name: "+visitors.getVisitor_name()+"\n Visitor's Code: "+visitors.getVisitor_code()+"\n Visitor's Phone number "+visitors.getVisitor_phone()+"\n Resident Name: "+visitors.getWhomToSee()
+                  +"\n Resident Address: "+visitors.getLocation()+"\n Date of Visit: "+visitors.getDateOfVisit()+ "\n Duration of stay: "+visitors.getVisitor_duration();
+
           int width = 300;
           int height = 300;
           QRCodeWriter qrCodeWriter = new QRCodeWriter();
           ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
-          BitMatrix bitMatrix = qrCodeWriter.encode(String.valueOf(visitors), BarcodeFormat.QR_CODE, width, height);
+          BitMatrix bitMatrix = qrCodeWriter.encode(data, BarcodeFormat.QR_CODE, width, height);
           MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
           byte[] imageBytes = pngOutputStream.toByteArray();
 
@@ -118,6 +121,25 @@ public class VisitorController {
           responseBody.put("message", "User Logged Successfully. Visitor's code is " + token + " and expected departure date is " + expectedDepartureDate + " Or scan below QR Code");
           responseBody.put("qrCodeImage", imageBytes);
 
+
+          try {
+
+
+              String htmlContent = "<html><body>" +
+                      "<p>Hi " + visitors.getVisitor_name() + ",</p>" +
+                      "<p>You have been logged in successfully. Please present this code to the security: " + visitors.getVisitor_code() + ".</p>" +
+                      "<p>You can also present the QR code below to the security for fast validation before entry:</p>" +
+                      "<img src='cid:qrCodeImage'>" +
+                      "</body></html>";
+
+              ByteArrayDataSource qrCodeImage = new ByteArrayDataSource(imageBytes, "image/png");
+
+              emailSenderService.sendEmail(visitors.getVisitor_email(), "Visitor Log Notification For New Haven Estate", htmlContent, imageBytes );
+          }
+          catch (Exception e) {
+              System.out.println(e.getMessage());
+          }
+          
           HttpHeaders headers = new HttpHeaders();
           headers.setContentType(MediaType.APPLICATION_JSON);
 

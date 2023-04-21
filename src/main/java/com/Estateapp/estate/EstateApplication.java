@@ -1,6 +1,13 @@
 package com.Estateapp.estate;
 
 import com.google.gson.*;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -24,10 +31,10 @@ public class EstateApplication {
 //
 //		CloseableHttpClient httpClient = HttpClients.createDefault();
 //
-//		HttpPost httpPost = new HttpPost("https://api.openai.com/v1/engines/davinci-codex/completions");
+//		HttpPost httpPost = new HttpPost("https://api.openai.com/v1/engines/text-davinci-003/completions");
 //
 //		httpPost.setHeader("Content-Type", "application/json");
-//		httpPost.setHeader("Authorization", "Bearer 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");
+//		httpPost.setHeader("Authorization", "Bearer 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");
 //
 //		StringEntity requestEntity = new StringEntity("{\"prompt\":\"" + prompt + "\",\"max_tokens\":1,\"temperature\":0,\"n\":1,\"stop\":\"\\n\"}");
 //		httpPost.setEntity(requestEntity);
@@ -42,14 +49,14 @@ public class EstateApplication {
 //		}
 
 
-		File journalDirectory = new File("C:\\u01\\app\\oracle\\shared\\properties\\Terminal");
-//		File footageDirectory = new File(path+Upload.getBranch()+"\\"+Upload.getTerminal()+"\\"+"Footages");
-
-		if (!journalDirectory.exists()) {
-			boolean status = journalDirectory.mkdir();
-		}
-
-		Set<Character> matchedChars = new HashSet<>();
+//		File journalDirectory = new File("C:\\u01\\app\\oracle\\shared\\properties\\Terminal");
+////		File footageDirectory = new File(path+Upload.getBranch()+"\\"+Upload.getTerminal()+"\\"+"Footages");
+//
+//		if (!journalDirectory.exists()) {
+//			boolean status = journalDirectory.mkdir();
+//		}
+//
+//		Set<Character> matchedChars = new HashSet<>();
 
 	}
 
