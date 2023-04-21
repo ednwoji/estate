@@ -1,6 +1,7 @@
 package com.Estateapp.estate.Repository;
 
 import com.Estateapp.estate.Entity.Visitors;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -27,4 +29,8 @@ public interface VisitorsRepository extends JpaRepository<Visitors, Long> {
 
 
     List<Visitors> findByResidentEmail(String email);
+
+    List<Visitors> findAll(Sort sort);
+
+    Visitors findByVisitorId(long id);
 }

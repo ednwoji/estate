@@ -22,6 +22,8 @@ public class Visitors {
     private String visitor_name;
     private String visitor_email;
     private String visitor_phone;
+
+    private String dateOfVisit;
     private int visitor_duration;
     private String location;
     private String visitor_code;

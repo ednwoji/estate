@@ -153,7 +153,7 @@
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
+                <nav class="sidebar-nav" th:if="${session.userRole eq 'USER'}">
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
@@ -178,6 +178,44 @@
                             </a>
                         </li>
 
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/visitors}"
+                               aria-expanded="false">
+                                <i class=" fas fa-edit" aria-hidden="true"></i>
+                                <span class="hide-menu">Add Visitors</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+
+                </nav>
+
+
+                <nav class="sidebar-nav" th:if="${session.userRole eq 'SECURITY'}">
+                    <ul id="sidebarnav">
+                        <!-- User Profile-->
+                        <li class="sidebar-item pt-2">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/dashboard}"
+                               aria-expanded="false">
+                                <i class="far fa-clock" aria-hidden="true"></i>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/profile}"
+                               aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">Profile</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/security}"
+                               aria-expanded="false">
+                                <i class="fa fa-columns" aria-hidden="true"></i>
+                                <span class="hide-menu">View and Approve Visitors</span>
+                            </a>
+                        </li>
 
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/visitors}"
@@ -189,8 +227,57 @@
 
                     </ul>
 
+
                 </nav>
-                <!-- End Sidebar navigation -->
+
+
+
+                <nav class="sidebar-nav" th:if="${session.userRole eq 'ADMIN'}">
+                    <ul id="sidebarnav">
+                        <!-- User Profile-->
+                        <li class="sidebar-item pt-2">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/dashboard}"
+                               aria-expanded="false">
+                                <i class="far fa-clock" aria-hidden="true"></i>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/profile}"
+                               aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">Profile</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/view}"
+                               aria-expanded="false">
+                                <i class="fa fa-columns" aria-hidden="true"></i>
+                                <span class="hide-menu">View Visitors</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/visitors}"
+                               aria-expanded="false">
+                                <i class=" fas fa-edit" aria-hidden="true"></i>
+                                <span class="hide-menu">Add Visitors</span>
+                            </a>
+                        </li>
+
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/visitors}"
+                               aria-expanded="false">
+                                <i class=" fas fa-address-book" aria-hidden="true"></i>
+                                <span class="hide-menu">View Residents</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+
+                </nav>                <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->
         </aside>

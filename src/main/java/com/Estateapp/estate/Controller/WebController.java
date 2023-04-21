@@ -8,6 +8,7 @@ import com.Estateapp.estate.Repository.VisitorsRepository;
 import com.Estateapp.estate.Service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,6 +71,15 @@ public class WebController {
     @GetMapping("/visitors")
     public String addVisitorPage() {
         return "AddVisitors";
+    }
+
+
+    @GetMapping("/security")
+    public String viewAllVisitorsForSecurity(Model model) {
+
+        List<Visitors> visitors = visitorsRepository.findAll(Sort.by("dateOfVisit").descending());
+        model.addAttribute("allVisitors", visitors);
+        return "SecurityView";
     }
 
 

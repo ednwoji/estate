@@ -1,5 +1,6 @@
 package com.Estateapp.estate.Controller;
 
+import com.Estateapp.estate.Entity.Roles;
 import com.Estateapp.estate.Entity.Users;
 import com.Estateapp.estate.Entity.Visitors;
 import com.Estateapp.estate.Repository.UsersRepository;
@@ -67,6 +68,7 @@ public class AuthController {
         users.setHouse_address(houseAddress);
         users.setPhone_number(phone);
         users.setPassword(hashed_password);
+        users.setRole(Roles.valueOf("USER"));
 
 
         try {
@@ -131,6 +133,7 @@ public class AuthController {
 
 
             session.setAttribute("user", user.getName());
+            session.setAttribute("userRole", String.valueOf(user.getRole()));
             session.setAttribute("email", email);
             session.setAttribute("phone", user.getPhone_number());
             session.setAttribute("address", user.getHouse_address());

@@ -40,6 +40,11 @@
   background-color: #f1f1f1;
 }
 
+.form-control {
+
+width:50%
+}
+
 
    .form-page {
 <!--  position: absolute;-->
@@ -150,7 +155,7 @@
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
+                <nav class="sidebar-nav" th:if="${session.userRole eq 'USER'}">
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
@@ -182,10 +187,99 @@
                                 <span class="hide-menu">Add Visitors</span>
                             </a>
                         </li>
+
                     </ul>
 
+
                 </nav>
-                <!-- End Sidebar navigation -->
+
+
+                <nav class="sidebar-nav" th:if="${session.userRole eq 'SECURITY'}">
+                    <ul id="sidebarnav">
+                        <!-- User Profile-->
+                        <li class="sidebar-item pt-2">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/dashboard}"
+                               aria-expanded="false">
+                                <i class="far fa-clock" aria-hidden="true"></i>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/profile}"
+                               aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">Profile</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/security}"
+                               aria-expanded="false">
+                                <i class="fa fa-columns" aria-hidden="true"></i>
+                                <span class="hide-menu">View and Approve Visitors</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/visitors}"
+                               aria-expanded="false">
+                                <i class=" fas fa-edit" aria-hidden="true"></i>
+                                <span class="hide-menu">Add Visitors</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+
+                </nav>
+
+
+
+                <nav class="sidebar-nav" th:if="${session.userRole eq 'ADMIN'}">
+                    <ul id="sidebarnav">
+                        <!-- User Profile-->
+                        <li class="sidebar-item pt-2">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/dashboard}"
+                               aria-expanded="false">
+                                <i class="far fa-clock" aria-hidden="true"></i>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/profile}"
+                               aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">Profile</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/view}"
+                               aria-expanded="false">
+                                <i class="fa fa-columns" aria-hidden="true"></i>
+                                <span class="hide-menu">View Visitors</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/visitors}"
+                               aria-expanded="false">
+                                <i class=" fas fa-edit" aria-hidden="true"></i>
+                                <span class="hide-menu">Add Visitors</span>
+                            </a>
+                        </li>
+
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/visitors}"
+                               aria-expanded="false">
+                                <i class=" fas fa-address-book" aria-hidden="true"></i>
+                                <span class="hide-menu">View Residents</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+
+                </nav>                <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->
         </aside>
@@ -208,46 +302,49 @@
 
 
 
-<!--                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">-->
-<!--                        <div class="d-md-flex">-->
-<!--                            <ol class="breadcrumb ms-auto">-->
-<!--                                <li><a href="#" class="fw-normal">Chief! Please fill this form to log visitors</a></li>-->
-<!--                            </ol>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
 
 
-            <div class="container-fluid">
+            <div class="container-fluid" id="pre-form">
 
                 <form id="my-form" class="container">
                     <div class="form-page current-page">
                         <div class="form-group">
                             <label for="vname">Visitor's Name:</label>
-                            <input class="form-control" type="text" id="vname" name="vname">
+                            <input class="form-control" type="text" id="vname" name="vname" autocomplete="off">
                         </div>
                         <button type="button" class="btn btn-primary mt-3 next-button">Next</button>
                     </div>
                     <div class="form-page mt-3">
                         <div class="form-group">
                             <label for="vemail">Visitor's Email:</label>
-                            <input class="form-control" type="text" id="vemail" name="vemail">
+                            <input class="form-control" type="text" id="vemail" name="vemail" autocomplete="off">
                         </div>
                         <button type="button" class="btn btn-primary mt-3 next-button">Next</button>
                     </div>
                     <div class="form-page mt-3">
                         <div class="form-group">
                             <label for="vphone">Visitor's Phone:</label>
-                            <input class="form-control" type="text" id="vphone" name="vphone">
+                            <input class="form-control" type="text" id="vphone" name="vphone" autocomplete="off">
                         </div>
                         <button type="button" class="btn btn-primary mt-3 next-button">Next</button>
                     </div>
+
+                    <div class="form-page mt-3">
+                        <div class="form-group">
+                            <label for="vdate">Date of Visit:</label>
+                            <input class="form-control" type="date" id="vdate" name="date">
+                        </div>
+                        <button type="button" class="btn btn-primary mt-3 next-button">Next</button>
+                    </div>
+
+
                     <div class="form-page mt-3">
                         <div class="form-group">
                             <label for="vduration">Estimated number of days to stay:</label>
-                            <input class="form-control" type="text" id="vduration" name="duration">
+                            <input class="form-control" type="text" id="vduration" name="duration" autocomplete="off">
                         </div>
                         <button type="button" class="btn btn-primary mt-3 next-button">Next</button>
                     </div>
@@ -378,17 +475,42 @@ nextButtons.forEach(button => {
           days: $('#vduration').val(),
           location: $('#vlocation').val(),
           password: $('#userpass').val(),
-          resident: $('#resident').val()
+          resident: $('#resident').val(),
+          dateOfVisit: $('#vdate').val()
         },
         success: function(data) {
 
          $('#my-form')[0].reset();
-         $('#my-form').prepend('<div class="alert alert-info text-center border border-info">' + data + '</div>');
+<!--         $('#pre-form').prepend('<div class="alert alert-info text-center border border-info">' + data + '</div>');-->
+        $('#my-form').hide();
+
+
+        $('#pre-form').prepend('<div class="alert alert-info text-center border border-info">' + data.message + '</div>');
+
+        // create image tag and set its source to the base64 encoded image data
+        var imgTag = $('<img>', {
+          src: 'data:image/png;base64,' + data.qrCodeImage,
+          alt: 'QR Code Image'
+        });
+
+        // append image tag to the page
+        $('#pre-form').append(imgTag);
+
         },
         error: function(jqXHR, textStatus, errorThrown) {
           // display error message to the user
-          if (jqXHR.responseText) {
-            $('#my-form').prepend('<div class="error">' + jqXHR.responseText + '</div>');
+
+
+          if (jqXHR.status === 401) {
+            // display error message to the user
+            $('#pre-form').prepend('<div class="alert alert-info text-center border border-info">Unauthorized: Please enter a valid password</div>');
+        }
+
+
+          else {
+            $('#pre-form').prepend('<div class="error">' + errorThrown + '</div>');
+            $('#my-form').hide();
+
            }
         }
       });
