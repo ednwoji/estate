@@ -83,6 +83,15 @@ public class WebController {
     }
 
 
+    @GetMapping("/residents")
+    public String viewAllResidents(Model model) {
+
+        List<Users> residents = usersRepository.findAll(Sort.by("name").ascending());
+        model.addAttribute("allResidents", residents);
+        return "viewusers";
+    }
+
+
     @GetMapping("/view")
     public String viewVisitorsPage(HttpSession session, Model model) {
 

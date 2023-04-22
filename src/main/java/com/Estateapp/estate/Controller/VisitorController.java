@@ -16,6 +16,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import javax.imageio.ImageIO;
 import net.bytebuddy.asm.Advice;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.query.Param;
@@ -54,6 +55,10 @@ public class VisitorController {
 
     @Autowired
     private VisitorsRepository visitorsRepository;
+
+
+    @Autowired
+    private UsersRepository usersRepository;
 
 
     @Autowired
@@ -139,7 +144,7 @@ public class VisitorController {
           catch (Exception e) {
               System.out.println(e.getMessage());
           }
-          
+
           HttpHeaders headers = new HttpHeaders();
           headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -190,6 +195,14 @@ public class VisitorController {
 
         return new ResponseEntity<>(visitors, HttpStatus.OK);
     }
+
+
+    @PostMapping("/searchresident")
+    public ResponseEntity<Users> searchResident(@RequestParam("code") String residentName) {
+        Users users =  usersRepository.findByName(residentName);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
 
 
 //    @PostMapping("/searchvisitor")
