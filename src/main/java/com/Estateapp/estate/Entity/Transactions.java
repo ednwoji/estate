@@ -18,7 +18,14 @@ public class Transactions {
     private Long txnId;
     private String name;
     private String email;
+
+    @Transient
+    private String[] txnDate;
+
+    private String monthPaid;
     private double amount;
     private String txnRef;
+
+    private String year;
 
 }

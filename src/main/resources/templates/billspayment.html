@@ -11,10 +11,10 @@
   <meta name="description"
         content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
   <meta name="robots" content="noindex,nofollow">
-  <title>Security</title>
+  <title>Pay Bills</title>
   <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
   <!-- Favicon icon -->
-  <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/EstateLogo1.png">
   <!-- Custom CSS -->
   <link href="/css/style.min.css" rel="stylesheet">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -22,31 +22,69 @@
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+  <link href="/css/login.css" rel="stylesheet">
+  <script src="/js/login.js"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
   <![endif]-->
 
   <style>
-    th {
-    text-align: center;
+
+    .tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
 }
 
-.table td {
-font-size: small;
-text-align: center;
-}
+.form-control {
 
-#approve {
-
-background-color: Green;
-font-color: black;
-}
-
-#decline {
-background-color: Red;
-font-color: black;
+width:50%
 }
 
 
-  </style>
+   .form-page {
+<!--  position: absolute;-->
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.form-styling input {
+  width: 100px; /* adjust width as needed */
+  height: 40px; /* adjust height as needed */
+  border: none;
+   border-radius: 25px; /* half of the height */
+  padding: 10px;
+  font-size: 18px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.current-page {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+
+.checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* CSS styles for individual checkboxes */
+  input[type="checkbox"] {
+    margin-right: 5px;
+  }
+
+
+    </style>
 </head>
 
 <body>
@@ -263,7 +301,7 @@ font-color: black;
 
 
           <li class="sidebar-item">
-            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/visitors}"
+            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/residents}"
                aria-expanded="false">
               <i class=" fas fa-address-book" aria-hidden="true"></i>
               <span class="hide-menu">View Residents</span>
@@ -282,7 +320,7 @@ font-color: black;
         </ul>
 
 
-      </nav>      <!-- End Sidebar navigation -->
+      </nav>                <!-- End Sidebar navigation -->
     </div>
     <!-- End Sidebar scroll-->
   </aside>
@@ -292,106 +330,109 @@ font-color: black;
   <!-- ============================================================== -->
   <!-- Page wrapper  -->
   <!-- ============================================================== -->
-  <div class="page-wrapper">
+  <div class="page-wrapper" style="min-height: 250px;">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
     <div class="page-breadcrumb bg-white">
       <div class="row align-items-center">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-17">
-          <div th:if="${record != null}">
 
-            <div class="alert alert-info text-center border border-info">
-              <b th:text="${record}"/>
-            </div>
-
-          </div>
-          </div>
-        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-          <div class="d-md-flex">
-          </div>
+        <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
+          <h4 class="page-title">Chief! Let's Help You Pay Your Bills</h4>
         </div>
+
+
+
       </div>
       <!-- /.col-lg-12 -->
     </div>
-    <!-- ============================================================== -->
-    <!-- End Bread crumb and right sidebar toggle -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- Container fluid  -->
-    <!-- ============================================================== -->
-    <div class="container-fluid">
-      <!-- ============================================================== -->
-      <!-- Start Page Content -->
-      <!-- ============================================================== -->
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="white-box">
-            <form id="searchForm">
-              <input class="form-styling" type="text" id="code" placeholder="Enter visitor Code" >
-              <button type="submit" class="btn btn-success">Search Visitor</button>
-            </form>
-            <div class="table-responsive">
-
-              <table class="table text-nowrap" id="table-full">
-                <thead>
-                <tr>
-                  <th class="border-top-0">Resident</th>
-                  <th class="border-top-0">Visitor</th>
-                  <th class="border-top-0">Visitor's Code</th>
-                  <th class="border-top-0">Date of Visit</th>
-                  <th class="border-top-0">Location</th>
-                  <th class="border-top-0">Entry Status</th>
-                  <th class="border-top-0">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="visitor : ${allVisitors}">
-                  <td th:text="${visitor.whomToSee}" style="text-align: center;"></td>
-                  <td th:text="${visitor.visitor_name}" style="text-align: center;"></td>
-                  <td th:text="${visitor.visitor_code}" style="text-align: center;"></td>
-                  <td th:text="${visitor.dateOfVisit}" style="text-align: center;"></td>
-                  <td th:text="${visitor.location}" style="text-align: center;"></td>
-                  <td th:text="${visitor.entry_status}" style="text-align: center;"></td>
-
-                  <div th:if="${visitor.entry_status eq 'Approved'}"  role="group">
-                   <td style="text-align: center;"> <a th:href="@{/visitor/{id}/decline(id=${visitor.visitorId})}" id="decline" class="btn btn-group-sm">Query Entrance</a></td>
-
-                  </div>
-
-                  <div th:if="${visitor.entry_status eq 'Declined'}"  role="group">
-                    <td style="text-align: center;"> <a th:href="@{/visitor/{id}/approve(id=${visitor.visitorId})}" id="approve" class="btn btn-group-sm">Approve</a></td>
-
-                  </div>
-
-                  <div th:if="${visitor.entry_status eq 'Pending'}"  role="group">
-                    <td style="text-align: center;"><a th:href="@{/visitor/{id}/approve(id=${visitor.visitorId})}" id="approve" class="btn btn-group-sm">Approve</a>
-                      <a th:href="@{/visitor/{id}/decline(id=${visitor.visitorId})}" id="decline" class="btn btn-group-sm">Decline</a></td>
-                  </div>
 
 
+    <div class="container-fluid" id="pre-form">
 
-
-                </tr>
-                </tbody>
-              </table>
-
-
-
-            </div>
+      <form id="my-form" class="container">
+        <div class="form-page current-page">
+          <div class="form-group">
+            <label for="bname">Type of Bill:</label>
+            <select class="form-control" id="bname" name="bname" autocomplete="off">
+              <option selected>Select Bill</option>
+              <option value="SECURITY">Security Levy</option>
+              <option value="WASTE">Waste Levy</option>
+              <option value="DEVELOPMENT">Development Levy</option>
+            </select>
           </div>
+          <button type="button" class="btn btn-primary mt-3 next-button">Next</button>
         </div>
-      </div>
-      <!-- ============================================================== -->
-      <!-- End PAge Content -->
-      <!-- ============================================================== -->
-      <!-- ============================================================== -->
-      <!-- Right sidebar -->
-      <!-- ============================================================== -->
-      <!-- .right-sidebar -->
-      <!-- ============================================================== -->
-      <!-- End Right sidebar -->
-      <!-- ============================================================== -->
+<!--        <div class="form-page mt-3">-->
+<!--          <div class="form-group">-->
+<!--            <label for="email">Email:</label>-->
+<!--            <input class="form-control" type="text" id="email" th:value="${userEmail}" name="email" autocomplete="off">-->
+<!--          </div>-->
+<!--          <button type="button" class="btn btn-primary mt-3 next-button">Next</button>-->
+<!--        </div>-->
+
+
+        <div class="form-page mt-3">
+          <div class="form-group">
+            <label for="amount">Amount:</label>
+            <input class="form-control" type="number" id="amount" name="amount" autocomplete="off">
+          </div>
+          <button type="button" class="btn btn-primary mt-3 next-button">Next</button>
+        </div>
+
+
+        <div class="form-page mt-3">
+          <div class="form-group">
+            <label for="bdate">Month to be Paid For:</label>
+
+            <select class="form-control" id="year" name="year" autocomplete="off">
+              <option selected>Select Year</option>
+              <option value="2023">2023</option>
+              <option value="2024">2024</option>
+              <option value="2025">2025</option>
+            </select>
+
+
+
+            <input type="checkbox" name="month" id="bdate" value="January">January<br>
+            <input type="checkbox" name="month" id="bdate" value="February">February<br>
+            <input type="checkbox" name="month" id="bdate" value="March">March<br>
+            <input type="checkbox" name="month" id="bdate" value="April">April<br>
+            <input type="checkbox" name="month" id="bdate" value="May">May<br>
+            <input type="checkbox" name="month" id="bdate" value="June">June<br>
+            <input type="checkbox" name="month" id="bdate" value="July">July<br>
+            <input type="checkbox" name="month" id="bdate" value="August">August<br>
+            <input type="checkbox" name="month" id="bdate" value="September">September<br>
+            <input type="checkbox" name="month" id="bdate" value="October">October<br>
+            <input type="checkbox" name="month" id="bdate" value="November">November<br>
+            <input type="checkbox" name="month" id="bdate" value="December">December<br>
+
+
+<!--            <input class="form-control" type="date" id="bdate" name="date">-->
+          </div>
+          <button type="button" class="btn btn-primary mt-3 next-button">Next</button>
+        </div>
+
+
+        <div class="form-page mt-3">
+          <button type="submit" class="btn btn-primary mt-3" onclick="payWithPaystack()">Pay Bill</button>
+        </div>
+
+
+        <input th:value="${session.user}" type="hidden" id="resident" name="resident">
+        <input class="form-control" type="hidden" id="email" th:value="${userEmail}" name="email" autocomplete="off">
+
+
+
+      </form>
+
+
+      <script src="https://js.paystack.co/v1/inline.js"></script>
+
+
+
+
+
     </div>
     <!-- ============================================================== -->
     <!-- End Container fluid  -->
@@ -399,7 +440,8 @@ font-color: black;
     <!-- ============================================================== -->
     <!-- footer -->
     <!-- ============================================================== -->
-    <footer class="footer text-center"> 2023 © Estate Portal brought to you by David Nwoji
+    <footer class="footer text-center"> 2023 © Visitor's Portal brought to you by <a
+            href="#">David Nwoji</a>
     </footer>
     <!-- ============================================================== -->
     <!-- End footer -->
@@ -426,51 +468,106 @@ font-color: black;
 <!--Custom JavaScript -->
 <script src="/js/custom.js"></script>
 
-
-
 <script>
-$(document).ready(function() {
 
-  $('#searchForm').submit(function(event) {
-    event.preventDefault(); // prevent the form from submitting normally
-    var searchValue = $('#code').val(); // get the value entered by the user
-    $.ajax({
-      url: '/visitor/searchvisitor', // the URL of the Spring controller that will handle the search
-      method: 'POST',
-      data: {
-        code: searchValue // pass the search value as a POST parameter
-      },
-      success: function(response) {
-<!--        console.log(response);-->
-        $('#table-full').hide();
-        $('#table-search').hide();
+const form = document.querySelector('#my-form');
+const pages = form.querySelectorAll('.form-page');
+const nextButtons = form.querySelectorAll('.next-button');
 
-var searchResultsTable = $('<table>').addClass('table text-nowrap').attr('id', 'searchResultsTable'); // create a new table element for the search results
-<!--var tableHeader = $('<thead>').append($('<tr>').append(-->
+let currentPage = 0;
 
+nextButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    // hide current page
+    button.classList.add('hide');
+<!--    pages[currentPage].classList.remove('current-page');-->
 
-var tableHeader = $('#table-full thead').clone();
-        searchResultsTable.append(tableHeader);
-        var tableBody = $('<tbody>');
-        var tableRow = $('<tr>');
-        tableRow.append($('<td>').text(response.whomToSee));
-        tableRow.append($('<td>').text(response.visitor_name));
-        tableRow.append($('<td>').text(response.visitor_code));
-        tableRow.append($('<td>').text(response.dateOfVisit));
-        tableRow.append($('<td>').text(response.location));
-        tableRow.append($('<td>').text(response.entry_status));
-        tableRow.append($('<td>').append($('<a>').attr('href', '/visitor/' + response.visitorId + '/approve').attr('id', 'approve').addClass('btn btn-group-sm').text('Approve'))
-  .append($('<a>').attr('href', '/visitor/' + response.visitorId + '/decline').attr('id', 'decline').addClass('btn btn-group-sm').text('Decline'))
-);        tableBody.append(tableRow);
-        searchResultsTable.append(tableBody);
-        $('#table-full').before(searchResultsTable);
-      }
-    });
+    // show next page
+    currentPage++;
+    pages[currentPage].classList.add('current-page');
   });
 });
 
 
+
+
+
 </script>
+
+
+
+<script>
+
+
+    const name = document.getElementById('resident').value;
+    const result = name.replace(/ /g, '_');
+
+    const randomNumber = Math.floor(Math.random() * 900000) + 100000;
+
+    const ref = result.concat('_', randomNumber);
+    console.log(ref);
+
+    const paymentForm = document.getElementById('my-form');
+    paymentForm.addEventListener("submit", payWithPaystack, false);
+
+    function payWithPaystack(e) {
+        e.preventDefault();
+
+    var checkedValues = $('input[name="month"]:checked').map(function() {
+        return this.value;
+    }).get();
+
+<!--    var count = checkedValues.length;-->
+<!--    if($('#bname').val == "SECURITY") {-->
+<!--    var price = 1500;-->
+<!--    if((price * count) != $('#amount').val()) {-->
+
+<!--        alert('Wrong Amount');-->
+<!--    }-->
+
+<!--    }-->
+
+    console.log(checkedValues);
+
+    let handler = PaystackPop.setup({
+    key: 'pk_test_66d623dd735b4fb516d1ea92a07e335faff325f3', // Replace with your public key
+    email: document.getElementById('email').value,
+    amount: document.getElementById('amount').value * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
+    currency: 'NGN', // Use GHS for Ghana Cedis or USD for US Dollars
+    ref: ref,
+    callback: function(response) {
+      var reference = response.reference;
+      alert('Payment complete! Reference: ' + reference);
+    },
+    onClose: function() {
+      alert('Transaction was not completed, window closed.');
+    },
+  });
+  handler.openIframe();
+
+   $.ajax({
+    url: '/txns/log',
+    method: 'post',
+    data: JSON.stringify({
+        name: $('#bname').val(),
+        email: $('#email').val(),
+        amount: $('#amount').val(),
+        year: $('#year').val(),
+        txnDate: checkedValues,
+        txnRef: ref
+    }),
+    contentType: 'application/json',
+    success: function(response) {
+        console.log(response);
+    },
+    error: function(xhr, status, error) {
+        console.log(xhr.responseText);
+    }
+});
+
+}</script>
+
+
 
 </body>
 

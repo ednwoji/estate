@@ -20,17 +20,6 @@ public class EmailSenderService {
 
         public void sendEmail(String toEmail, String subject, String body, byte[] imageBytes) throws MessagingException {
 
-    //        SimpleMailMessage message = new SimpleMailMessage();
-    //        message.setFrom("davidnwoji@gmail.com");
-    //        message.setTo(toEmail);
-    //        message.setText(body);
-    //        message.setSubject(subject);
-    //
-    //        mailSender.send(message);
-    //
-    //        System.out.println("Mail Sent successfully");
-
-
             MimeMessage message = mailSender.createMimeMessage();
 
             // Pass true to indicate you need a multipart message

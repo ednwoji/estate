@@ -140,6 +140,16 @@ public class WebController {
 
 
 
+    @GetMapping("/bills")
+    public String makePayment(HttpSession session, Model model) {
+
+        String email = (String) session.getAttribute("email");
+        Users user = usersRepository.findByEmail(email);
+        model.addAttribute("userEmail", user.getEmail());
+        return "billspayment";
+    }
+
+
 
 }
 

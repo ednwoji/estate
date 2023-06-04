@@ -25,6 +25,16 @@
 <![endif]-->
 
     <style>
+
+    #extend {
+background-color: Yellow;
+font-color: black;
+}
+
+#query {
+background-color: Red;
+font-color: black;
+}
 .tab {
   overflow: hidden;
   border: 1px solid #ccc;
@@ -60,6 +70,45 @@
   th {
     padding: 25px;
   }
+
+
+  .form-popup {
+  position: fixed; /* Position the div relative to the viewport */
+  left: 0;
+  z-index: 9999;
+  top: 0;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  overflow: auto; /* Enable scrolling if the content overflows the div */
+  background-color: rgba(0,0,0,0.4); /* Add a dark background color to the div */
+}
+
+.form-popup .visitor-form {
+  background-color: #fefefe;
+  margin: 10% auto; /* Center the div vertically and horizontally */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.form-popup .close-btn {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.form-popup .close-btn:hover,
+.form-popup .close-btn:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
 </style>
 </head>
 
@@ -186,6 +235,15 @@
                             </a>
                         </li>
 
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/bills}"
+                               aria-expanded="false">
+                                <i class="fas fa-donate" aria-hidden="true"></i>
+                                <span class="hide-menu">Pay Bills</span>
+                            </a>
+                        </li>
+
+
                     </ul>
 
 
@@ -224,6 +282,15 @@
                                 <span class="hide-menu">Add Visitors</span>
                             </a>
                         </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/bills}"
+                               aria-expanded="false">
+                                <i class="fas fa-donate" aria-hidden="true"></i>
+                                <span class="hide-menu">Pay Bills</span>
+                            </a>
+                        </li>
+
 
                     </ul>
 
@@ -273,6 +340,15 @@
                                 <span class="hide-menu">View Residents</span>
                             </a>
                         </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/web/bills}"
+                               aria-expanded="false">
+                                <i class="fas fa-donate" aria-hidden="true"></i>
+                                <span class="hide-menu">Pay Bills</span>
+                            </a>
+                        </li>
+
 
                     </ul>
 
@@ -342,6 +418,7 @@
                         <tr>
                             <th style="text-align: left;">Name of Visitor</th>
                             <th style="text-align: left;">Date of Expected Visit</th>
+                            <th style="text-align: left;">Duration of stay</th>
                             <th style="text-align: left;">Visit Status</th>
                             <th style="text-align: left;">Visitor's Code</th>
                             <th style="text-align: left;">Not Sure of this?</th>
@@ -349,10 +426,11 @@
                         <tr th:each="visitor : ${allVisitors}">
 
                             <td th:text="${visitor.visitor_name}" style="text-align: center;"></td>
+                            <td th:text="${visitor.dateOfVisit}" style="text-align: center;"></td>
                             <td th:text="${visitor.visitor_duration}" style="text-align: center;"></td>
                             <td th:text="${visitor.entry_status}" style="text-align: center;"></td>
                             <td th:text="${visitor.visitor_code}" style="text-align: center;"></td>
-                            <td style="text-align: center;"><a href="#">Query Log</a></td>
+                            <td style="text-align: center;"><a href="#" id="extend" th:attr="onclick=|viewForm('${visitor.visitor_name}','${visitor.visitor_phone}', '${visitor.visitorId}')|" class="btn btn-group-sm">Extend Access</a> <a href="#" id="query" class="btn btn-group-sm">Query Log</a></td>
 
                         </tr>
 
@@ -365,6 +443,7 @@
                         <tr>
                             <th style="text-align: left;">Name of Visitor</th>
                             <th style="text-align: left;">Date of Expected Visit</th>
+                            <th style="text-align: left;">Duration of stay</th>
                             <th style="text-align: left;">Visit Status</th>
                             <th style="text-align: left;">Visitor's Code</th>
                             <th style="text-align: left;">Not Sure of this?</th>
@@ -373,10 +452,11 @@
                         </tr>
                         <tr th:each="visitor : ${unapprovedVisitors}">
                             <td th:text="${visitor.visitor_name}" style="text-align: center;"></td>
+                            <td th:text="${visitor.dateOfVisit}" style="text-align: center;"></td>
                             <td th:text="${visitor.visitor_duration}" style="text-align: center;"></td>
                             <td th:text="${visitor.entry_status}" style="text-align: center;"></td>
                             <td th:text="${visitor.visitor_code}" style="text-align: center;"></td>
-                            <td style="text-align: center;"><a href="#">Query Log</a></td>
+                            <td style="text-align: center;"><a href="#" id="extend" th:attr="onclick=|viewForm('${visitor.visitor_name}','${visitor.visitor_phone}', '${visitor.visitorId}')|" class="btn btn-group-sm">Extend Access</a> <a href="#" id="query" class="btn btn-group-sm">Query Log</a></td>
 
                         </tr>
 
@@ -389,6 +469,7 @@
                         <tr>
                             <th style="text-align: left;">Name of Visitor</th>
                             <th style="text-align: left;">Date of Expected Visit</th>
+                            <th style="text-align: left;">Duration of stay</th>
                             <th style="text-align: left;">Visit Status</th>
                             <th style="text-align: left;">Visitor's Code</th>
                             <th style="text-align: left;">Not Sure of this?</th>
@@ -397,10 +478,12 @@
                         </tr>
                         <tr th:each="visitor : ${approvedVisitors}">
                             <td th:text="${visitor.visitor_name}" style="text-align: center;"></td>
+                            <td th:text="${visitor.dateOfVisit}" style="text-align: center;"></td>
                             <td th:text="${visitor.visitor_duration}" style="text-align: center;"></td>
                             <td th:text="${visitor.entry_status}" style="text-align: center;"></td>
                             <td th:text="${visitor.visitor_code}" style="text-align: center;"></td>
-                            <td style="text-align: center;"><a href="#">Query Access</a></td>
+                            <td style="text-align: center;"><a href="#" id="extend" th:attr="onclick=|viewForm('${visitor.visitor_name}','${visitor.visitor_phone}', '${visitor.visitorId}')|" class="btn btn-group-sm">Extend Access</a> <a href="#" id="query" class="btn btn-group-sm">Query Access</a></td>
+
 
                         </tr>
 
@@ -410,40 +493,12 @@
 
 
 
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
             <footer class="footer text-center"> 2023 © Visitor's Portal brought to you by <a
                     href="#">David Nwoji</a>
             </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
         </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
     </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
     <script src="/plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -456,6 +511,92 @@
     <script src="/js/custom.js"></script>
 
 <script>
+
+function viewForm(name, phone, id) {
+
+   console.log(name);
+   console.log(phone);
+   console.log(id);
+  var formDiv = document.createElement("div");
+  formDiv.classList.add("form-popup");
+
+  var form = document.createElement("form");
+  form.classList.add("visitor-form");
+
+  var nameLabel = document.createElement("label");
+  nameLabel.textContent = "Visitor's name: ";
+  var nameInput = document.createElement("input");
+  nameInput.type = "text";
+  nameInput.name = "name";
+  nameInput.value = name;
+  nameInput.disabled = true;
+  nameLabel.appendChild(nameInput);
+
+  var phoneLabel = document.createElement("label");
+  phoneLabel.textContent = "Visitor's phone: ";
+  var phoneInput = document.createElement("input");
+  phoneInput.type = "text";
+  phoneInput.name = "phone";
+  phoneInput.value = phone;
+  phoneInput.disabled = true;
+  phoneLabel.appendChild(phoneInput);
+
+  var daysLabel = document.createElement("label");
+  daysLabel.textContent = "Number of days extension: ";
+  var daysInput = document.createElement("input");
+  daysInput.type = "number";
+  daysInput.name = "days";
+  daysLabel.appendChild(daysInput);
+
+  var submitBtn = document.createElement("button");
+  submitBtn.type = "submit";
+  submitBtn.textContent = "Submit";
+
+  var closeBtn = document.createElement("span");
+  closeBtn.classList.add("close-btn");
+  closeBtn.innerHTML = "&times;"; // '×' character
+
+  form.appendChild(nameLabel);
+  form.appendChild(phoneLabel);
+  form.appendChild(daysLabel);
+  form.appendChild(submitBtn);
+  form.appendChild(closeBtn);
+
+  formDiv.appendChild(form);
+
+  document.body.appendChild(formDiv);
+
+  closeBtn.onclick = function() {
+    document.body.removeChild(formDiv);
+  };
+
+  form.onsubmit = function(event) {
+    event.preventDefault();
+
+
+    $.ajax({
+      type: "POST",
+      url: "/visitor/updatestay",
+      data: {
+      id: id,
+      days: daysInput.value
+    },
+      success: function(response) {
+        // Handle the server response
+        alert(response);
+        document.body.removeChild(formDiv);
+      },
+      error: function() {
+        alert("An error occurred while processing the form.");
+      }
+    });
+    document.body.removeChild(formDiv);
+  };
+}
+
+
+
+
 
 function openTable(evt, tableName) {
   // Get all table containers

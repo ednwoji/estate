@@ -40,10 +40,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/visitor")
@@ -201,6 +198,41 @@ public class VisitorController {
     public ResponseEntity<Users> searchResident(@RequestParam("code") String residentName) {
         Users users =  usersRepository.findByName(residentName);
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+
+    @Transactional
+    @Modifying
+    @PostMapping("/updatestay")
+    public ResponseEntity<?> updateVisitors(@RequestParam("id") Long visitorId, @RequestParam("days") int daysExtension) throws ParseException {
+
+        try {
+            Visitors visitors = visitorsRepository.findById(visitorId).orElseThrow();
+            int newDuration = visitors.getVisitor_duration() + daysExtension;
+
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = null;
+            date = sdf.parse(visitors.getDateOfVisit());
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.add(Calendar.DAY_OF_MONTH, newDuration);
+            date = calendar.getTime();
+
+            String expectedDepartureDate = sdf.format(date);
+
+
+            visitors.setVisitor_duration(newDuration);
+            visitors.setExpectedDepartureDate(expectedDepartureDate);
+            visitorsRepository.save(visitors);
+
+            return new ResponseEntity<>("Visitor's stay has been extended by " + daysExtension + " days", HttpStatus.OK);
+
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>("An Error ocurred while processing your request", HttpStatus.BAD_GATEWAY);
+
+        }
     }
 
 

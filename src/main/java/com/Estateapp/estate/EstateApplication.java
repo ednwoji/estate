@@ -10,22 +10,38 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+//import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 @SpringBootApplication
+//@EnableEurekaClient
 public class EstateApplication {
 
 	private static final String OPENAI_API_KEY = "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";
-	private static final String API_URL = "https://api.openai.com/v1/engines/davinci-codex/completions";
+	private static final String API_URL = "https://api.openai.com/v1/engines/text-davinci-002-render-sha";
 	private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(EstateApplication.class, args);
 
+
+		String inputDate = "1999-10-06";
+
+		// Parse the input date
+		LocalDate date = LocalDate.parse(inputDate);
+
+		// Format the date to the desired output format
+		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy", Locale.ENGLISH);
+		String formattedDate = date.format(outputFormatter).toUpperCase();
+
+		System.out.println("Formatted date: " + formattedDate);
 
 //		String prompt = "Who is president of Nigeria?";
 //
